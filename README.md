@@ -1,5 +1,6 @@
 # Sistem Pembelian Obat — Thread + Database (Java)
 **Nama:** Yusri Abdi
+
 **NIM:** F1D02310098
 
 Program ini merupakan contoh sederhana pemakaian **Thread**, **Database (MySQL)**, dan konsep **OOP (encapsulation, inheritance, polymorphism, abstraction)** pada aplikasi pembelian obat di apotek.
@@ -38,20 +39,23 @@ private static final String USER = "root";      // ganti bila perlu
 private static final String PASS = "";          // ganti bila perlu
 ```
 ---
-### Penjelasan File
-1. PesanObatTask.java
-    `PesanObatTask` adalah thread yang menyimpan data pembelian obat ke tabel pembelian di database. Saat dijalankan, thread membuat koneksi, menjalankan perintah INSERT menggunakan `PreparedStatement`, menampilkan pesan berhasil, lalu melakukan jeda singkat. Jika koneksi gagal atau terjadi error, pesan kesalahan ditampilkan.
-2. MonitorPembelianTask.java
-    `MonitorPembelianTask` merupakan thread yang berfungsi menampilkan data pembelian dari tabel pembelian secara berkala. Saat dijalankan, thread membuka koneksi menggunakan `DBConnector`, lalu menjalankan query `SELECT` untuk membaca seluruh transaksi dan mencetaknya ke konsol sebanyak tiga kali. Pada iterasi terakhir, status pesanan otomatis ditampilkan sebagai `“SELESAI”`. Thread memberi jeda singkat di setiap siklus pemantauan, dan menutup pemantauan setelah selesai.
-3. DBConector.java
-    `DBConnector` merupakan class utilitas yang digunakan untuk mengelola koneksi ke database MySQL. Class ini menyimpan konfigurasi berupa `URL database`, `username`, dan `password`. Melalui method statis `connect()`, program memuat driver `com.mysql.cj.jdbc.Driver` lalu mencoba membuat koneksi menggunakan `DriverManager`. Jika berhasil, method mengembalikan objek `Connection`, dan jika gagal akan menampilkan pesan kesalahan serta mengembalikan `null`.
-4. App.java
-    `App` merupakan class utama yang menjalankan seluruh proses aplikasi. Pada method `main()`, program membuat beberapa thread `PesanObatTask` untuk menambahkan data pembelian obat ke database, dan satu thread `MonitorPembelianTask` untuk menampilkan transaksi secara berkala. Setelah objek thread dibuat, semua thread dijalankan secara bersamaan menggunakan `start()`, sehingga proses input dan monitoring dapat terjadi secara `paralel`.
+## Penjelasan File
+#### 1. PesanObatTask.java
+`PesanObatTask` adalah thread yang menyimpan data pembelian obat ke tabel pembelian di database. Saat dijalankan, thread membuat koneksi, menjalankan perintah INSERT menggunakan `PreparedStatement`, menampilkan pesan berhasil, lalu melakukan jeda singkat. Jika koneksi gagal atau terjadi error, pesan kesalahan ditampilkan.
+#### 2. MonitorPembelianTask.java
+`MonitorPembelianTask` merupakan thread yang berfungsi menampilkan data pembelian dari tabel pembelian secara berkala. Saat dijalankan, thread membuka koneksi menggunakan `DBConnector`, lalu menjalankan query `SELECT` untuk membaca seluruh transaksi dan mencetaknya ke konsol sebanyak tiga kali. Pada iterasi terakhir, status pesanan otomatis ditampilkan sebagai `“SELESAI”`. Thread memberi jeda singkat di setiap siklus pemantauan, dan menutup pemantauan setelah selesai.
+#### 3. DBConector.java
+`DBConnector` merupakan class utilitas yang digunakan untuk mengelola koneksi ke database MySQL. Class ini menyimpan konfigurasi berupa `URL database`, `username`, dan `password`. Melalui method statis `connect()`, program memuat driver `com.mysql.cj.jdbc.Driver` lalu mencoba membuat koneksi menggunakan `DriverManager`. Jika berhasil, method mengembalikan objek `Connection`, dan jika gagal akan menampilkan pesan kesalahan serta mengembalikan `null`.
+#### 4. App.java
+`App` merupakan class utama yang menjalankan seluruh proses aplikasi. Pada method `main()`, program membuat beberapa thread `PesanObatTask` untuk menambahkan data pembelian obat ke database, dan satu thread `MonitorPembelianTask` untuk menampilkan transaksi secara berkala. Setelah objek thread dibuat, semua thread dijalankan secara bersamaan menggunakan `start()`, sehingga proses input dan monitoring dapat terjadi secara `paralel`.
+
 ---
 ## Contoh Output
-1. Output Terminal
+#### 1. Output Terminal
+
    ![alt text](image.png)
-2. Database
+#### 2. Database
+   
    ![alt text](image-1.png)
 ---
 ## Kesimpulan
